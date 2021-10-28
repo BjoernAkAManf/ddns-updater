@@ -16,6 +16,11 @@
         <version.docker>3.2.12</version.docker>
     </properties>
 
+    <scm>
+        <url>https://github.com/bjoernakamanf/ddns-updater</url>
+        <tag>master</tag>
+    </scm>
+
     <dependencies>
         <!-- Annotation Processor: Reduces boiler code -->
         <dependency>

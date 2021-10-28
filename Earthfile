@@ -20,12 +20,12 @@ compile-jar:
 
     # Cache pom.xml and all required dependencies
     COPY ./pom.xml pom.xml
-    RUN mvn dependency:go-offline
+    RUN mvn -B -ntp dependency:go-offline
 
     # Copy source files over
     COPY ./src ./src
     # ISSUE: Unfortunately -o is currently NOT possible, as we use surefire-plugin and that download dynamically!
-    RUN mvn package
+    RUN mvn -B package
     SAVE ARTIFACT target/*.jar /app.jar
     SAVE ARTIFACT target/lib /lib
 
@@ -83,7 +83,7 @@ build-image-java:
     LABEL org.opencontainers.image.created="${APP_IMG_CREATED}"
     LABEL org.opencontainers.image.revision="${APP_IMG_REV}"
 
-    SAVE IMAGE ${APP_IMG_GROUP_ID}/${APP_IMG_ARTIFACT_ID}:${APP_IMG_VERSION}
+    SAVE IMAGE --push ghcr.io/bjoernakamanf/ddns-update/${APP_IMG_ARTIFACT_ID}:latest
 
 main:
     FROM busybox
