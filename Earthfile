@@ -83,7 +83,7 @@ build-image-java:
     LABEL org.opencontainers.image.created="${APP_IMG_CREATED}"
     LABEL org.opencontainers.image.revision="${APP_IMG_REV}"
 
-    SAVE IMAGE --push ghcr.io/bjoernakamanf/ddns-update/${APP_IMG_ARTIFACT_ID}:latest
+   SAVE IMAGE --push ghcr.io/bjoernakamanf/${APP_IMG_GROUP_ID}/${APP_IMG_ARTIFACT_ID}:${APP_IMG_VERSION}
 
 main:
     FROM busybox
