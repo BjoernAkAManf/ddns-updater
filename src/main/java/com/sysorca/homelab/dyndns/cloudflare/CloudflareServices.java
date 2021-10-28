@@ -1,7 +1,6 @@
 package com.sysorca.homelab.dyndns.cloudflare;
 
 import com.sysorca.homelab.dyndns.Service;
-import com.sysorca.homelab.dyndns.ServiceProvider;
 import com.sysorca.homelab.dyndns.ServiceStorage;
 import com.sysorca.homelab.dyndns.cloudflare.api.Request;
 import com.sysorca.homelab.dyndns.cloudflare.api.models.DNSRecord;
@@ -17,7 +16,7 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-public final class CloudflareServices implements ServiceProvider, ServiceStorage {
+public final class CloudflareServices implements ServiceStorage {
     private final Request request;
     private final String zoneId;
 
@@ -27,9 +26,9 @@ public final class CloudflareServices implements ServiceProvider, ServiceStorage
             log.info("- Start - ");
             final var records = new ArrayList<DNSRecord>();
             Loader.load(
-                    5,
-                    this.request.zones(zoneId),
-                    i -> records.addAll(Arrays.asList(i))
+                5,
+                this.request.zones(zoneId),
+                i -> records.addAll(Arrays.asList(i))
             );
             final var services = new ArrayList<Service>(records.size());
             for (final var record : records) {
@@ -64,13 +63,13 @@ public final class CloudflareServices implements ServiceProvider, ServiceStorage
             final var address = ip.getAddress();
             log.info("Creating '{}' Record for '{}' with content '{}'", type, host, address);
             this.request.zones(this.zoneId).createDNSRecord(
-                    DNSRecordCreateParameters
-                            .builder()
-                            .type(type)
-                            .name(host)
-                            .content(address)
-                            .proxied(true)
-                            .build()
+                DNSRecordCreateParameters
+                    .builder()
+                    .type(type)
+                    .name(host)
+                    .content(address)
+                    .proxied(true)
+                    .build()
             );
         }
     }
