@@ -1,0 +1,31 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your Report. Please be as detailed as possible!
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Describe how we can reproduce the error?
+      description: What did you do to cause the Bug to appear
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What was supposed to happen?
+      description: Please specify the behavior you would have expected.
+    validations:
+      required: true
+
+  - type: textarea
+    id: message
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
