@@ -16,6 +16,8 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    env:
+      IS_RELEASE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -33,5 +35,10 @@ jobs:
         run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/latest/download/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
       - name: Earthly version
         run: earthly --version
+
       - name: Run build
+        run: earthly +main
+
+      - name: Run push
+        if: ${{ !env.IS_RELEASE }}
         run: earthly --push +main
